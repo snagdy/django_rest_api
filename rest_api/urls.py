@@ -1,5 +1,4 @@
-from django.urls import include, path, re_path
-from rest_framework import routers
+from django.urls import include, path
 from . import views
 
 # # purpose of this router is to dynamically update URLs based on the the state of the DB backend

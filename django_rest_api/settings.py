@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,9 +76,14 @@ WSGI_APPLICATION = 'django_rest_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+if 'test' in sys.argv or 'test_coverage' in sys.argv: # covers regular testing and django-coverage
+    default_engine = 'django.db.backends.sqlite3'
+else:
+    default_engine = 'django.db.backends.mysql'
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': default_engine,
         'NAME': 'testdb',
         'USER': 'djangouser',
         'PASSWORD': "yKRVhi<&'6]xPP%[~>Dj",
@@ -85,6 +91,9 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+# for test cases
+
 
 
 # Password validation

@@ -6,6 +6,7 @@ from rest_framework.views import status
 
 from .serialisers import JournalEntriesSerialiser
 from .models import JournalEntries
+from .decorators import validate_request_inputs
 
 
 class ListCreateJournalEntriesView(generics.ListCreateAPIView):
@@ -18,6 +19,7 @@ class ListCreateJournalEntriesView(generics.ListCreateAPIView):
     serializer_class = JournalEntriesSerialiser
 
     # we override the post method of this class to handle POST requests to the endpoint
+    @validate_request_inputs
     def post(self, request, *args, **kwargs):
         an_entry = JournalEntries.objects.create(
             submitted = request.data['submitted'],
@@ -57,7 +59,7 @@ class JournalEntriesDetailView(generics.RetrieveUpdateDestroyAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-
+    @validate_request_inputs
     def put(self, request, *args, **kwargs):
         try:
             an_entry = self.queryset.get(pk=kwargs['pk'])
@@ -72,7 +74,6 @@ class JournalEntriesDetailView(generics.RetrieveUpdateDestroyAPIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-
 
     def delete(self, request, *args, **kwargs):
         try:

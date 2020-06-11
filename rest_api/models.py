@@ -3,9 +3,8 @@ from datetime import datetime, date
 
 # Create your models here.
 class JournalEntries(models.Model):
-    # entry_id = models.IntegerField(null=False)
-    submitted = models.DateTimeField(default=datetime.now)
-    intended_date = models.DateField(default=date.today)
+    submitted = models.DateTimeField(default=datetime.now, null=False)
+    intended_date = models.DateField(default=date.today, null=False)
     earth = models.IntegerField(null=False)
     water = models.IntegerField(null=False)
     air = models.IntegerField(null=False)
